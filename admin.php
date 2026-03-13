@@ -179,9 +179,14 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     </div>
                     
                     <div class="d-flex flex-column flex-sm-row gap-2">
+                        <a href="gerenciar_turmas.php" class="btn btn-primary fw-bold p-2 p-md-3 shadow-sm">
+                            <i class="bi bi-people-fill"></i> Gerenciar Turmas
+                        </a>
+                        
                         <button class="btn btn-outline-warning fw-bold p-2 p-md-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalSenhas">
                             <i class="bi bi-key"></i> Senhas das Turmas
                         </button>
+                        
                         <button class="btn btn-success fw-bold p-2 p-md-3 shadow" data-bs-toggle="modal" data-bs-target="#modalProfessor">
                             <i class="bi bi-stars"></i> Criar Termo Oficial
                         </button>

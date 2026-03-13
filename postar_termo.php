@@ -1,6 +1,17 @@
 <?php
 require_once 'config/conexao.php';
-$sql_turmas = "SELECT id, nome FROM turmas ORDER BY id ASC";
+$sql_turmas = "SELECT id, nome FROM turmas 
+        ORDER BY 
+            CASE 
+                WHEN nome LIKE '%6º%' THEN 1
+                WHEN nome LIKE '%7º%' THEN 2
+                WHEN nome LIKE '%8º%' THEN 3
+                WHEN nome LIKE '%9º%' THEN 4
+                WHEN nome LIKE '%1º%' THEN 5
+                WHEN nome LIKE '%2º%' THEN 6
+                WHEN nome LIKE '%3º%' THEN 7
+                ELSE 8
+            END ASC, nome ASC";
 $resultado_turmas = $conn->query($sql_turmas);
 ?>
 <!DOCTYPE html>

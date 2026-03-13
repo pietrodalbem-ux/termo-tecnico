@@ -5,8 +5,8 @@ require_once '../config/conexao.php';
 // Pega a matéria que veio pela URL
 $materia = isset($_GET['materia']) ? $_GET['materia'] : '';
 
-// Busca apenas os pendentes DAQUELA matéria específica
-$sql = "SELECT id, materia, nome, descricao, imagem FROM termos WHERE status = 'pendente' AND materia = ?";
+// ADICIONADO A COLUNA 'autor' NO SELECT ABAIXO:
+$sql = "SELECT id, materia, nome, descricao, imagem, autor FROM termos WHERE status = 'pendente' AND materia = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $materia);
 $stmt->execute();

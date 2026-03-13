@@ -53,12 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // 3. Inserir no banco
-    $sql_insert = "INSERT INTO termos (nome, descricao, materia, autor, status, imagem) VALUES (?, ?, ?, ?, 'pendente', ?)";
+    // 3. Inserir no banco (AGORA COM O TURMA_ID)
+    $sql_insert = "INSERT INTO termos (nome, descricao, materia, autor, status, imagem, turma_id) VALUES (?, ?, ?, ?, 'pendente', ?, ?)";
     $stmt_insert = $conn->prepare($sql_insert);
     
-    // O "sssss" significa que estamos enviando 5 Strings (textos)
-    $stmt_insert->bind_param("sssss", $palavra, $significado, $materia, $nome_aluno, $caminho_imagem);
+    // O "sssssi" significa 5 Strings (textos) e 1 Integer (número, que é o ID da turma)
+    $stmt_insert->bind_param("sssssi", $palavra, $significado, $materia, $nome_aluno, $caminho_imagem, $turma_id);
     
     if ($stmt_insert->execute()) {
         // Sucesso! Volta para a página de postar com aviso verde

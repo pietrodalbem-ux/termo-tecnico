@@ -64,18 +64,47 @@
                     <span class="badge bg-primary fs-6"><i class="bi bi-hash"></i> <span id="totalTermos">0</span> termos cadastrados</span>
                 </div>
 
-                <div class="row mb-5">
-                    <div class="col-md-8 col-lg-6">
-                        <div class="input-group input-group-lg shadow-sm">
-                            <span class="input-group-text bg-dark border-primary text-primary"><i class="bi bi-search"></i></span>
-                            <input type="text" id="campoBusca" class="form-control bg-dark text-white border-primary" placeholder="Pesquisar palavra...">
+                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mb-5">
+                    
+                    <button class="btn btn-outline-primary fw-bold px-4 py-2 shadow-sm flex-grow-1 text-start" data-bs-toggle="modal" data-bs-target="#modalPesquisa">
+                        <i class="bi bi-search me-2"></i> Pesquisar termo...
+                    </button>
+
+                    <div>
+                        <div class="d-flex flex-wrap gap-1 bg-dark p-2 rounded border border-primary shadow-sm justify-content-center justify-content-lg-start" id="barraAlfabeto">
+                            <button onclick="filtrarPorLetra('TODOS')" class="btn btn-sm btn-primary fw-bold px-2 btn-letra">TODOS</button>
+                            <script>
+                                const letrasPort = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+                                letrasPort.forEach(l => {
+                                    document.write(`<button onclick="filtrarPorLetra('${l}')" class="btn btn-sm btn-outline-secondary fw-bold btn-letra px-2">${l}</button>`);
+                                });
+                            </script>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row" id="listaTermos">
                 </div>
             </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPesquisa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark border-primary shadow-lg">
+                <div class="modal-header border-bottom border-primary">
+                    <h5 class="modal-title text-primary fw-bold"><i class="bi bi-search"></i> Pesquisar Termo</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="input-group input-group-lg shadow-sm">
+                        <span class="input-group-text bg-dark border-primary text-primary"><i class="bi bi-search"></i></span>
+                        <input type="text" id="campoBusca" class="form-control bg-dark text-white border-primary" placeholder="O que você está procurando?">
+                    </div>
+                    <p class="text-secondary small mt-3 text-center mb-0">Os resultados atualizam no fundo. Pressione <strong>Enter</strong> para fechar.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -98,6 +127,22 @@
         const materiaPagina = 'portugues';
         let termosGlobais = [];
 
+        // Foco automático no input ao abrir o Modal
+        const modalPesquisaEl = document.getElementById('modalPesquisa');
+        const campoBusca = document.getElementById('campoBusca');
+        
+        modalPesquisaEl.addEventListener('shown.bs.modal', () => {
+            campoBusca.focus();
+        });
+
+        // Fechar Modal ao apertar Enter
+        campoBusca.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const modal = bootstrap.Modal.getInstance(modalPesquisaEl);
+                modal.hide();
+            }
+        });
+
         async function carregarTermos() {
             try {
                 const resposta = await fetch(`api/buscar_todos_aprovados.php?materia=${materiaPagina}`);
@@ -110,7 +155,6 @@
             const divLista = document.getElementById('listaTermos');
             divLista.innerHTML = '';
             
-            // Atualiza a contagem na tela
             document.getElementById('totalTermos').innerText = lista.length;
             
             if (lista.length === 0) {
@@ -118,16 +162,13 @@
                 return;
             }
 
-            // FEATURE 2: ORDENA E SEPARA POR LETRAS (A-Z)
             lista.sort((a, b) => a.nome.localeCompare(b.nome));
             const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
             alfabeto.forEach(letra => {
-                // Remove acentos para agrupar certo (Ex: Água vai para A)
                 const termosDaLetra = lista.filter(t => t.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").charAt(0).toUpperCase() === letra);
                 
                 if (termosDaLetra.length > 0) {
-                    // Cria o título da Letra
                     divLista.innerHTML += `<div class="col-12 mt-4 mb-3 border-bottom border-secondary"><h2 class="text-primary fw-bold">${letra}</h2></div>`;
                     
                     termosDaLetra.forEach(termo => {
@@ -135,7 +176,6 @@
                             ? '<span class="badge bg-warning text-dark mb-2"><i class="bi bi-star-fill"></i> Oficial</span>' 
                             : '<span class="badge bg-primary mb-2"><i class="bi bi-person"></i> Aluno</span>';
                         
-                        // FEATURE 3: IMAGEM CLICÁVEL (Aciona a função abrirImagem)
                         let imagemHtml = termo.imagem && termo.imagem !== "" 
                             ? `<img src="${termo.imagem}" class="card-img-top border-bottom border-secondary" style="height: 200px; object-fit: cover; cursor: pointer;" onclick="abrirImagem('${termo.imagem}', '${termo.nome}')" title="Clique para ampliar">` 
                             : '';
@@ -161,7 +201,27 @@
             });
         }
 
-        // Função para abrir o modal da imagem grande
+        function filtrarPorLetra(letra) {
+            const botoes = document.querySelectorAll('.btn-letra');
+            botoes.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-secondary');
+                if(btn.innerText === letra) {
+                    btn.classList.remove('btn-outline-secondary');
+                    btn.classList.add('btn-primary');
+                }
+            });
+
+            if (letra === 'TODOS') {
+                renderizarTermos(termosGlobais);
+            } else {
+                const filtrados = termosGlobais.filter(t => 
+                    t.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").charAt(0).toUpperCase() === letra
+                );
+                renderizarTermos(filtrados);
+            }
+        }
+
         function abrirImagem(url, titulo) {
             document.getElementById('modalImagemSrc').src = url;
             document.getElementById('modalImagemTitulo').innerText = titulo;
@@ -169,10 +229,20 @@
             modal.show();
         }
 
-        document.getElementById('campoBusca').addEventListener('input', function(e) {
+        campoBusca.addEventListener('input', function(e) {
             const termoBuscado = e.target.value.toLowerCase();
             const filtrados = termosGlobais.filter(t => t.nome.toLowerCase().includes(termoBuscado) || t.descricao.toLowerCase().includes(termoBuscado));
             renderizarTermos(filtrados);
+            
+            const botoes = document.querySelectorAll('.btn-letra');
+            botoes.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-secondary');
+                if(btn.innerText === 'TODOS') {
+                    btn.classList.remove('btn-outline-secondary');
+                    btn.classList.add('btn-primary');
+                }
+            });
         });
 
         carregarTermos();
