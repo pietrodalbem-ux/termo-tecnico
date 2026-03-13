@@ -26,8 +26,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../postar_termo.php?erro=turma");
         exit;
     }
+    
+    // FEATURE 1: BARRAR PALAVRAS REPETIDAS NO BANCO
+    $sql_check = "SELECT id FROM termos WHERE nome = ?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param("s", $palavra);
+    $stmt_check->execute();
+    $res_check = $stmt_check->get_result();
+    
+    if ($res_check->num_rows > 0) {
+        // Se já existe uma palavra igual, bloqueia e avisa
+        header("Location: ../postar_termo.php?erro=repetido");
+        exit;
+    }
+    $stmt_check->close();
 
-    // 2. Lógica para imagem (Agora vai funcionar com a pasta criada)
+    // 2. Lógica para imagem
     $caminho_imagem = "";
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         $extensao = strtolower(pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION));
@@ -39,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // 3. Inserir no banco (Removi o turma_id daqui para não dar erro no seu banco)
+    // 3. Inserir no banco
     $sql_insert = "INSERT INTO termos (nome, descricao, materia, autor, status, imagem) VALUES (?, ?, ?, ?, 'pendente', ?)";
     $stmt_insert = $conn->prepare($sql_insert);
     

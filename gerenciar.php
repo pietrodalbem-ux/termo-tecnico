@@ -64,12 +64,17 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     <hr class="border-secondary">
                     <li class="nav-item">
                         <a href="admin.php" class="nav-link text-white mb-2">
-                            <i class="bi bi-inbox me-2"></i> Pendentes da Turma
+                            <i class="bi bi-inbox-fill me-2"></i> Pendentes da Turma
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="gerenciar.php" class="nav-link active bg-warning text-dark mb-2 fw-bold shadow-sm" aria-current="page">
-                            <i class="bi bi-collection-fill me-2"></i> Gerir Aprovados
+                            <i class="bi bi-collection me-2"></i> Gerir Aprovados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="alterar_senha.php" class="nav-link text-white mb-2">
+                            <i class="bi bi-shield-lock me-2"></i> Mudar Minha Senha
                         </a>
                     </li>
                     <li class="mt-4">

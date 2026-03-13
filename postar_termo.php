@@ -33,7 +33,6 @@ $resultado_turmas = $conn->query($sql_turmas);
         <div class="row">
             
             <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-success border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
-                
                 <div class="offcanvas-header d-md-none mb-0 pb-0">
                     <h5 class="offcanvas-title fw-bolder text-danger">SESI <span class="text-secondary fs-6">Dicionário</span></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#menuLateral"></button>
@@ -93,6 +92,14 @@ $resultado_turmas = $conn->query($sql_turmas);
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php endif; ?>
+
+                                <?php if(isset($_GET['erro']) && $_GET['erro'] == 'repetido'): ?>
+                                    <div class="alert alert-warning alert-dismissible fade show fw-bold shadow-sm mb-4" role="alert">
+                                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Ops! Esta palavra já existe no dicionário.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                <?php endif; ?>
+
                                 <form action="api/salvar_termo.php" method="POST" enctype="multipart/form-data">
                                     <div class="row mb-4">
                                         <div class="col-md-6 mb-3 mb-md-0">

@@ -1,11 +1,8 @@
 <?php
 session_start();
+require_once 'config/conexao.php'; // Conectando ao banco de dados
 
-$usuarios = [
-    'portugues' => 'port123',
-    'matematica' => 'mat123'
-];
-
+// Lógica para sair da conta
 if (isset($_GET['sair'])) {
     session_destroy();
     header("Location: admin.php");
@@ -13,22 +10,31 @@ if (isset($_GET['sair'])) {
 }
 
 $erro = "";
+// Lógica de Login
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['senha_admin'])) {
     $materia_escolhida = $_POST['materia_login'];
     $senha_digitada = $_POST['senha_admin'];
 
-    if (isset($usuarios[$materia_escolhida]) && $usuarios[$materia_escolhida] === $senha_digitada) {
+    // Consulta a senha do professor direto no banco de dados
+    $stmt = $conn->prepare("SELECT * FROM professores WHERE materia = ? AND senha = ?");
+    $stmt->bind_param("ss", $materia_escolhida, $senha_digitada);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
         $_SESSION['logado'] = true;
         $_SESSION['materia_admin'] = $materia_escolhida;
+        $_SESSION['usuario_id'] = $materia_escolhida; 
         header("Location: admin.php");
         exit;
     } else {
         $erro = "Senha incorreta para a matéria selecionada!";
     }
+    $stmt->close();
 }
 
 // =========================================================================
-// TELA DE LOGIN DUPLO 
+// TELA DE LOGIN (NÃO LOGADO)
 // =========================================================================
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 ?>
@@ -64,8 +70,16 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
                 <div class="mb-4">
                     <input type="password" name="senha_admin" class="form-control bg-dark text-white border-secondary text-center shadow-sm" placeholder="Senha do professor..." required>
                 </div>
+                
                 <button type="submit" class="btn btn-warning w-100 fw-bold mb-3 shadow">Acessar Meu Painel</button>
-                <a href="index.php" class="btn btn-outline-secondary w-100">Voltar para o Site</a>
+                <a href="index.php" class="btn btn-outline-secondary w-100 mb-3">Voltar para o Site</a>
+                
+                <div class="text-center mt-2">
+                    <a href="recuperar_senha.php" class="text-secondary small text-decoration-none" style="transition: color 0.3s;" onmouseover="this.classList.replace('text-secondary', 'text-warning')" onmouseout="this.classList.replace('text-warning', 'text-secondary')">
+                        <i class="bi bi-question-circle"></i> Esqueci minha senha
+                    </a>
+                </div>
+
             </form>
         </div>
     </div>
@@ -95,7 +109,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         .card-termo:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.3) !important; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
-        /* Garante que o menu lateral cubra a tela no celular */
         @media (max-width: 767.98px) {
             .offcanvas-md { max-width: 80%; }
         }
@@ -145,6 +158,11 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                             <i class="bi bi-collection me-2"></i> Gerir Aprovados
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="alterar_senha.php" class="nav-link text-white mb-2">
+                            <i class="bi bi-shield-lock me-2"></i> Mudar Minha Senha
+                        </a>
+                    </li>
                     <li class="mt-4">
                         <a href="admin.php?sair=true" class="nav-link text-danger border border-danger mb-2">
                             <i class="bi bi-box-arrow-left me-2"></i> Sair da Conta
@@ -184,8 +202,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <form action="api/salvar_termo.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="autor" value="professor">
+                    <form action="api/salvar_termo_professor.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="materia" value="<?php echo $materia_logada; ?>">
 
                         <div class="mb-3">
@@ -218,7 +235,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     <p class="text-secondary small">Altere a senha que os alunos usam para postar novos termos.</p>
                     
                     <?php
-                    require_once 'config/conexao.php';
                     $sql_turmas = "SELECT * FROM turmas";
                     $result_turmas = $conn->query($sql_turmas);
                     
