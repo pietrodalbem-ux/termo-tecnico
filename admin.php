@@ -240,7 +240,21 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     <p class="text-secondary small">Altere a senha que os alunos usam para postar novos termos.</p>
                     
                     <?php
-                    $sql_turmas = "SELECT * FROM turmas";
+                    // Aqui está a nova lógica de ordenação!
+                    $sql_turmas = "
+                        SELECT * FROM turmas 
+                        ORDER BY 
+                            CASE 
+                                WHEN nome LIKE '%6º%' THEN 1
+                                WHEN nome LIKE '%7º%' THEN 2
+                                WHEN nome LIKE '%8º%' THEN 3
+                                WHEN nome LIKE '%9º%' THEN 4
+                                WHEN nome LIKE '%1º%' THEN 5
+                                WHEN nome LIKE '%2º%' THEN 6
+                                WHEN nome LIKE '%3º%' THEN 7
+                                ELSE 8
+                            END ASC, nome ASC
+                    ";
                     $result_turmas = $conn->query($sql_turmas);
                     
                     if($result_turmas && $result_turmas->num_rows > 0):
@@ -250,7 +264,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                         <input type="hidden" name="turma_id" value="<?php echo $turma['id']; ?>">
                         <label class="form-label text-white fw-bold"><?php echo $turma['nome']; ?></label>
                         <div class="input-group">
-                            <input type="text" name="nova_senha" class="form-control bg-dark text-warning border-secondary" value="<?php echo $turma['senha']; ?>" required>
+                            <input type="text" name="nova_senha" class="form-control bg-dark text-warning border-secondary" value="<?php echo htmlspecialchars($turma['senha']); ?>" required>
                             <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
                         </div>
                     </form>
