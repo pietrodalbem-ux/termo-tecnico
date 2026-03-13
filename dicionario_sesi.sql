@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/03/2026 às 18:42
+-- Tempo de geração: 13/03/2026 às 03:22
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `dicionario_sesi`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `professores`
+--
+
+CREATE TABLE `professores` (
+  `id` int(11) NOT NULL,
+  `materia` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `nome_seguranca` varchar(100) NOT NULL DEFAULT 'Professor Sesi'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `professores`
+--
+
+INSERT INTO `professores` (`id`, `materia`, `senha`, `nome_seguranca`) VALUES
+(1, 'portugues', 'port123', 'Gilmara Beraldo'),
+(2, 'matematica', 'mat123', 'Felipe');
 
 -- --------------------------------------------------------
 
@@ -45,12 +66,10 @@ CREATE TABLE `termos` (
 INSERT INTO `termos` (`id`, `materia`, `nome`, `descricao`, `imagem`, `status`, `data_criacao`, `autor`) VALUES
 (1, 'portugues', 'Efêmero', 'Aquilo que dura pouco tempo; que é passageiro, transitório, de curta duração.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80', 'aprovado', '2026-03-12 14:39:03', 'aluno'),
 (2, 'matematica', 'Teorema de Pitágoras', 'Em qualquer triângulo retângulo, o quadrado da hipotenusa é igual à soma dos quadrados dos catetos.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Pythagorean.svg/600px-Pythagorean.svg.png', 'aprovado', '2026-03-12 14:39:03', 'aluno'),
-(3, 'portugues', 'testeee', 'teste 01', 'assets/uploads/1773326883_P+M.png', 'aprovado', '2026-03-12 14:48:03', 'aluno'),
-(4, 'matematica', 'teste ', 'teste02', 'assets/uploads/1773327257_desenho do meu amor.png', 'aprovado', '2026-03-12 14:54:17', 'aluno'),
-(5, 'portugues', 'testeee do professor01', 'teste do professor 01', 'assets/uploads/1773328990_walpp cachorro samurai .jpg', 'aprovado', '2026-03-12 15:23:10', 'professor'),
-(6, 'matematica', 'teste do professor02', 'teste do professor 02', 'assets/uploads/1773330586_Captura de tela 2025-12-22 165153.png', 'aprovado', '2026-03-12 15:49:46', 'professor'),
-(7, 'portugues', 'teste 02', 'teste 02', 'uploads/69b2f70266a38.png', 'pendente', '2026-03-12 17:25:22', 'pietro eduardo'),
-(8, 'portugues', 'verbo', 'ação', 'uploads/69b2f7f161cd9.png', 'aprovado', '2026-03-12 17:29:21', 'pietro eduardo');
+(9, 'portugues', 'teste 01', 'testeeee', 'uploads/69b36c9816747.png', 'aprovado', '2026-03-13 01:47:04', 'pietro eduardo'),
+(11, 'portugues', 'teste 02 professor', 'teste 0222222', '', 'aprovado', '2026-03-13 01:57:50', 'professor'),
+(12, 'matematica', 'verbo', 'gkkvu', '', 'aprovado', '2026-03-13 02:09:23', 'pietro eduardo'),
+(14, 'matematica', 'teste 03', 'ydjyhd', '', 'aprovado', '2026-03-13 02:12:11', 'pietro eduardo');
 
 -- --------------------------------------------------------
 
@@ -79,6 +98,12 @@ INSERT INTO `turmas` (`id`, `nome`, `senha`) VALUES
 --
 
 --
+-- Índices de tabela `professores`
+--
+ALTER TABLE `professores`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `termos`
 --
 ALTER TABLE `termos`
@@ -95,10 +120,16 @@ ALTER TABLE `turmas`
 --
 
 --
+-- AUTO_INCREMENT de tabela `professores`
+--
+ALTER TABLE `professores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `termos`
 --
 ALTER TABLE `termos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `turmas`
