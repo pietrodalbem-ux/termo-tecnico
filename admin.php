@@ -44,10 +44,39 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Professor - SESI</title>
+    
+    <script>
+        const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', temaInicial);
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        /* ANIMAÇÃO DO SOL/LUA */
+        .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
+        @keyframes girarIcone {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animar-giro { animation: girarIcone 0.5s ease-in-out; }
+
+        /* REGRAS DO MODO CLARO (Invertido) */
+        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
+        [data-bs-theme="light"] .card.bg-dark { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
+        [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] select.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
+        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+    </style>
 </head>
-<body class="bg-dark d-flex align-items-center justify-content-center vh-100 p-3">
+<body class="bg-dark d-flex align-items-center justify-content-center vh-100 p-3 position-relative">
+    
+    <div class="position-absolute top-0 end-0 p-4">
+        <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Mudar Tema"></i>
+    </div>
+
     <div class="card bg-dark border-warning shadow-lg w-100" style="max-width: 420px;">
         <div class="card-body p-4 p-md-5 text-center">
             <h2 class="fw-bolder text-danger tracking-tight mb-0">SESI</h2>
@@ -79,10 +108,44 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
                         <i class="bi bi-question-circle"></i> Esqueci minha senha
                     </a>
                 </div>
-
             </form>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // SCRIPT DO TEMA PARA A TELA DE LOGIN
+        function aplicarTema(tema) {
+            document.documentElement.setAttribute('data-bs-theme', tema);
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                if (tema === 'light') {
+                    icone.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                    icone.classList.replace('text-warning', 'text-secondary');
+                } else {
+                    icone.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                    icone.classList.replace('text-secondary', 'text-warning');
+                }
+            });
+            localStorage.setItem('temaEscolhido', tema);
+        }
+
+        function alternarTema() {
+            const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+            const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+            
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                icone.classList.remove('animar-giro'); 
+                void icone.offsetWidth; 
+                icone.classList.add('animar-giro');
+            });
+            
+            aplicarTema(novoTema);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
+        });
+    </script>
 </body>
 </html>
 <?php
@@ -102,6 +165,12 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel - <?php echo $nome_materia; ?></title>
+    
+    <script>
+        const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', temaInicial);
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -109,9 +178,27 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         .card-termo:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.3) !important; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
-        @media (max-width: 767.98px) {
-            .offcanvas-md { max-width: 80%; }
+        @media (max-width: 767.98px) { .offcanvas-md { max-width: 80%; } }
+
+        /* ANIMAÇÃO DO SOL/LUA */
+        .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
+        @keyframes girarIcone {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
         }
+        .animar-giro { animation: girarIcone 0.5s ease-in-out; }
+
+        /* REGRAS DO MODO CLARO (Invertido) */
+        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
+        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .modal-content.bg-dark { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
+        [data-bs-theme="light"] .text-light { color: #495057 !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
+        [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] textarea.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
+        [data-bs-theme="light"] .card-footer.bg-transparent { border-color: #ced4da !important; }
     </style>
 </head>
 <body class="bg-body">
@@ -121,9 +208,12 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
         </div>
-        <button class="btn btn-outline-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-            <i class="bi bi-list fs-3"></i>
-        </button>
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
+            <button class="btn btn-outline-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+        </div>
     </div>
 
     <div class="container-fluid">
@@ -171,7 +261,12 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 </ul>
             </nav>
 
-            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100">
+            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100 position-relative">
+                
+                <div class="position-absolute top-0 end-0 mt-4 me-4 d-none d-md-block">
+                    <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Mudar Tema"></i>
+                </div>
+
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom border-warning pb-3 gap-3">
                     <div>
                         <h1 class="fw-bold text-warning"><i class="bi bi-inbox-fill"></i> Para Aprovação</h1>
@@ -240,7 +335,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     <p class="text-secondary small">Altere a senha que os alunos usam para postar novos termos.</p>
                     
                     <?php
-                    // Aqui está a nova lógica de ordenação!
                     $sql_turmas = "
                         SELECT * FROM turmas 
                         ORDER BY 
@@ -280,6 +374,39 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // SCRIPT DO TEMA PARA O PAINEL
+        function aplicarTema(tema) {
+            document.documentElement.setAttribute('data-bs-theme', tema);
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                if (tema === 'light') {
+                    icone.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                    icone.classList.replace('text-warning', 'text-secondary');
+                } else {
+                    icone.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                    icone.classList.replace('text-secondary', 'text-warning');
+                }
+            });
+            localStorage.setItem('temaEscolhido', tema);
+        }
+
+        function alternarTema() {
+            const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+            const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+            
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                icone.classList.remove('animar-giro'); 
+                void icone.offsetWidth; 
+                icone.classList.add('animar-giro');
+            });
+            
+            aplicarTema(novoTema);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
+        });
+
+        // RESTO DO SEU JAVASCRIPT
         const materiaLogada = '<?php echo $materia_logada; ?>';
 
         async function carregarPendentes() {

@@ -20,7 +20,7 @@ $toast_html = ""; // Variável para guardar nosso alerta flutuante
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['criar_turma'])) {
     $nome_turma = $_POST['nome_turma'];
     $senha_turma = $_POST['senha_turma'];
-    $criado_por = $_POST['criado_por']; // Recebe o nome do professor do formulário
+    $criado_por = $_POST['criado_por']; 
 
     $stmt = $conn->prepare("INSERT INTO turmas (nome, senha, criado_por) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $nome_turma, $senha_turma, $criado_por);
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_turma'])) {
     $id_turma = $_POST['id_turma'];
     $nome_turma = $_POST['nome_turma'];
     $senha_turma = $_POST['senha_turma'];
-    $criado_por = $_POST['criado_por']; // Atualiza também o professor
+    $criado_por = $_POST['criado_por']; 
 
     $stmt = $conn->prepare("UPDATE turmas SET nome = ?, senha = ?, criado_por = ? WHERE id = ?");
     $stmt->bind_param("sssi", $nome_turma, $senha_turma, $criado_por, $id_turma);
@@ -115,24 +115,60 @@ if (isset($_GET['deletar_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Turmas - <?php echo $nome_materia; ?></title>
+    
+    <script>
+        // Sincronizado com o mesmo nome das outras páginas
+        const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', temaInicial);
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
         @media (max-width: 767.98px) { .offcanvas-md { max-width: 80%; } }
+
+        /* ANIMAÇÃO DO SOL/LUA (Copiada do Matematica) */
+        .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
+        @keyframes girarIcone {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animar-giro { animation: girarIcone 0.5s ease-in-out; }
+
+        /* REGRAS DO MODO CLARO (Invertido - Copiado do Matematica) */
+        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
+        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .card.bg-body { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .modal-content.bg-dark { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
+        [data-bs-theme="light"] .text-light, [data-bs-theme="light"] .text-secondary { color: #495057 !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
+        [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] select.bg-dark, [data-bs-theme="light"] textarea.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
+        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
+        
+        /* Regras extras para o Admin (Tabelas) */
+        [data-bs-theme="light"] .table-dark { --bs-table-bg: #ffffff; --bs-table-color: #212529; --bs-table-border-color: #ced4da; --bs-table-hover-bg: #f1f3f5; }
+        [data-bs-theme="light"] .table-dark th { background-color: #e2e6ea; color: #212529; }
     </style>
 </head>
 <body class="bg-body">
 
-    <div class="d-md-none bg-dark border-bottom border-warning p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
+    <div class="d-md-none bg-dark border-bottom border-warning p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top" id="headerMobile">
         <div>
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
         </div>
-        <button class="btn btn-outline-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-            <i class="bi bi-list fs-3"></i>
-        </button>
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
+            <button class="btn btn-outline-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+        </div>
     </div>
 
     <div class="container-fluid">
@@ -167,6 +203,11 @@ if (isset($_GET['deletar_id'])) {
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="gerenciar_turmas.php" class="nav-link active bg-warning text-dark mb-2 fw-bold shadow-sm" aria-current="page">
+                            <i class="bi bi-people-fill me-2"></i> Gerenciar Turmas
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="alterar_senha.php" class="nav-link text-white mb-2">
                             <i class="bi bi-shield-lock me-2"></i> Mudar Minha Senha
                         </a>
@@ -177,11 +218,21 @@ if (isset($_GET['deletar_id'])) {
                         </a>
                     </li>
                 </ul>
+
+                <div class="mt-auto pb-2 text-center">
+                    <hr class="border-secondary mt-0 mb-3">
+                    <span class="text-secondary" style="font-size: 0.75rem;">Desenvolvido por</span><br>
+                    <span class="fw-bold text-white" style="font-size: 0.8rem;">Pietro Dalbem & Luiz Gustavo</span>
+                </div>
             </nav>
 
-            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100">
+            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100 position-relative">
                 
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom border-warning pb-3 gap-3">
+                <div class="position-absolute top-0 end-0 p-4 d-none d-md-block">
+                    <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Alternar Tema"></i>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom border-warning pb-3 gap-3 pe-md-5">
                     <div>
                         <h1 class="fw-bold text-warning"><i class="bi bi-people-fill"></i> Gerenciar Turmas</h1>
                         <p class="text-secondary fs-6 fs-md-5 mb-0">Adicione, edite ou remova as turmas cadastradas no sistema.</p>
@@ -197,7 +248,7 @@ if (isset($_GET['deletar_id'])) {
                     </div>
                 </div>
 
-                <div class="card bg-dark border-secondary shadow-sm">
+                <div class="card bg-dark shadow-sm border-secondary">
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-dark table-hover mb-0 align-middle">
@@ -240,7 +291,7 @@ if (isset($_GET['deletar_id'])) {
                                             <td class="p-3 text-secondary"><?php echo $criador; ?></td>
                                             <td class="p-3 text-secondary small"><?php echo $data_formatada; ?></td>
                                             <td class="p-3 text-center">
-                                                <span class="badge <?php echo ($turma['total_postagens'] > 0) ? 'bg-primary' : 'bg-secondary'; ?> rounded-pill px-3 py-2">
+                                                <span class="badge <?php echo ($turma['total_postagens'] > 0) ? 'bg-primary' : 'bg-secondary text-white'; ?> rounded-pill px-3 py-2">
                                                     <?php echo $turma['total_postagens']; ?>
                                                 </span>
                                             </td>
@@ -347,10 +398,55 @@ if (isset($_GET['deletar_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        // ==========================================
+        // === SCRIPT DO TEMA 100% CORRIGIDO ========
+        // ==========================================
+        function aplicarTema(tema) {
+            document.documentElement.setAttribute('data-bs-theme', tema);
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                if (tema === 'light') {
+                    icone.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                    icone.classList.replace('text-warning', 'text-secondary');
+                } else {
+                    icone.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                    icone.classList.replace('text-secondary', 'text-warning');
+                }
+            });
+            
+            // Corrige a cor do header mobile (bg-dark para bg-light)
+            const headerMobile = document.getElementById('headerMobile');
+            if(headerMobile) {
+                if(tema === 'light') {
+                    headerMobile.classList.replace('bg-dark', 'bg-light');
+                } else {
+                    headerMobile.classList.replace('bg-light', 'bg-dark');
+                }
+            }
+
+            localStorage.setItem('temaEscolhido', tema);
+        }
+
+        function alternarTema() {
+            const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+            const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+            
+            // Faz a animação de girar
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                icone.classList.remove('animar-giro'); 
+                void icone.offsetWidth; 
+                icone.classList.add('animar-giro');
+            });
+            
+            aplicarTema(novoTema);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
+            
+            // Lógica dos Toasts (Alertas)
             var toastElList = [].slice.call(document.querySelectorAll('.toast'));
             var toastList = toastElList.map(function (toastEl) {
-                return new bootstrap.Toast(toastEl, { delay: 4000 }); // some após 4 segundos
+                return new bootstrap.Toast(toastEl, { delay: 4000 }); 
             });
             toastList.forEach(toast => toast.show());
         });

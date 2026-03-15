@@ -51,10 +51,38 @@ $stmt_busca->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segurança - <?php echo $nome_materia; ?></title>
+
+    <script>
+        const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', temaInicial);
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        /* ANIMAÇÃO DO SOL/LUA */
+        .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
+        @keyframes girarIcone {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animar-giro { animation: girarIcone 0.5s ease-in-out; }
+
+        /* REGRAS DO MODO CLARO (Invertido) */
+        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
+        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .bg-body-tertiary { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
+        [data-bs-theme="light"] input.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
+        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+    </style>
 </head>
-<body class="bg-dark d-flex align-items-center justify-content-center vh-100 p-3">
+<body class="bg-dark d-flex align-items-center justify-content-center vh-100 p-3 position-relative">
+
+    <div class="position-absolute top-0 end-0 p-4">
+        <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Mudar Tema"></i>
+    </div>
 
     <div class="card bg-dark border-warning shadow-lg w-100" style="max-width: 500px;">
         <div class="card-body p-4 p-md-5">
@@ -88,5 +116,39 @@ $stmt_busca->close();
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // SCRIPT DO TEMA 
+        function aplicarTema(tema) {
+            document.documentElement.setAttribute('data-bs-theme', tema);
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                if (tema === 'light') {
+                    icone.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                    icone.classList.replace('text-warning', 'text-secondary');
+                } else {
+                    icone.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                    icone.classList.replace('text-secondary', 'text-warning');
+                }
+            });
+            localStorage.setItem('temaEscolhido', tema);
+        }
+
+        function alternarTema() {
+            const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+            const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+            
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                icone.classList.remove('animar-giro'); 
+                void icone.offsetWidth; 
+                icone.classList.add('animar-giro');
+            });
+            
+            aplicarTema(novoTema);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
+        });
+    </script>
 </body>
 </html>

@@ -30,7 +30,7 @@ $resultado_turmas = $conn->query($sql_turmas);
 </head>
 <body class="bg-body">
 
-    <div class="d-md-none bg-dark border-bottom border-success p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
+    <div class="d-md-none bg-dark border-bottom border-success p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top" style="z-index: 1050;">
         <div>
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
@@ -41,7 +41,7 @@ $resultado_turmas = $conn->query($sql_turmas);
     </div>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row flex-nowrap">
             
             <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-success border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
                 <div class="offcanvas-header d-md-none mb-0 pb-0">
@@ -122,7 +122,7 @@ $resultado_turmas = $conn->query($sql_turmas);
                                             <select class="form-select bg-dark text-white border-secondary shadow-sm" name="turma_id" required>
                                                 <option value="" disabled selected>Selecione...</option>
                                                 <?php while($turma = $resultado_turmas->fetch_assoc()): ?>
-                                                    <option value="<?php echo $turma['id']; ?>"><?php echo $turma['nome']; ?></option>
+                                                    <option value="<?php echo $turma['id']; ?>"><?php echo htmlspecialchars($turma['nome']); ?></option>
                                                 <?php endwhile; ?>
                                             </select>
                                         </div>
@@ -138,14 +138,17 @@ $resultado_turmas = $conn->query($sql_turmas);
                                             <option value="matematica">Matemática</option>
                                         </select>
                                     </div>
+                                    
                                     <div class="mb-4">
                                         <label class="form-label text-secondary fw-bold">Palavra ou Conceito</label>
                                         <input type="text" name="palavra" class="form-control bg-dark text-white border-secondary shadow-sm" placeholder="Ex: Metáfora..." required>
                                     </div>
+                                    
                                     <div class="mb-4">
                                         <label class="form-label text-secondary fw-bold">Significado</label>
                                         <textarea name="significado" class="form-control bg-dark text-white border-secondary shadow-sm" rows="3" placeholder="Explique com as suas palavras..." required></textarea>
                                     </div>
+                                    
                                     <div class="mb-4">
                                         <label class="form-label text-secondary fw-bold">Imagem Explicativa (Opcional)</label>
                                         <input type="file" name="imagem" class="form-control bg-dark text-white border-secondary shadow-sm" accept="image/*">
@@ -158,8 +161,11 @@ $resultado_turmas = $conn->query($sql_turmas);
                                         <input type="password" name="senha_turma" class="form-control bg-dark text-warning border-warning shadow-sm" placeholder="Digite a senha fornecida pelo professor..." required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-success w-100 fw-bold py-3 shadow"><i class="bi bi-send-fill"></i> Enviar para Aprovação</button>
+                                    <button type="submit" class="btn btn-success w-100 fw-bold py-3 shadow">
+                                        <i class="bi bi-send-fill"></i> Enviar para Aprovação
+                                    </button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
