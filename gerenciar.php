@@ -17,7 +17,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
     <title>Gerir Termos - <?php echo $nome_materia; ?></title>
     
     <script>
-        // Sincronizado com o mesmo nome das outras páginas
         const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
         document.documentElement.setAttribute('data-bs-theme', temaInicial);
     </script>
@@ -32,7 +31,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
         @media (max-width: 767.98px) { .offcanvas-md { max-width: 80%; } }
 
-        /* ANIMAÇÃO DO SOL/LUA (Copiada do Matematica) */
         .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
         @keyframes girarIcone {
             0% { transform: rotate(0deg) scale(1); }
@@ -41,22 +39,39 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        /* REGRAS DO MODO CLARO (Invertido - Copiado do Matematica) */
-        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
-        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
-        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .card.bg-body { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
-        [data-bs-theme="light"] .text-light, [data-bs-theme="light"] .text-secondary { color: #495057 !important; } 
-        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body, [data-bs-theme="light"] .bg-body { background-color: #E2DCD0 !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #D6CFC1 !important; }
+        
+        [data-bs-theme="light"] .card.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .text-light, [data-bs-theme="light"] .text-secondary { color: #5C636A !important; } 
+        [data-bs-theme="light"] .border-secondary, 
+        [data-bs-theme="light"] .card-footer.bg-dark,
+        [data-bs-theme="light"] .border-top.border-secondary { border-color: #C2BBAA !important; background-color: #F0EBE1 !important; } 
         [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
-        [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] select.bg-dark, [data-bs-theme="light"] textarea.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
-        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
-        [data-bs-theme="light"] .card-footer.bg-transparent, [data-bs-theme="light"] .card-footer { background-color: #f1f3f5 !important; }
+        
+        [data-bs-theme="light"] input.bg-dark, 
+        [data-bs-theme="light"] select.bg-dark, 
+        [data-bs-theme="light"] textarea.bg-dark { 
+            background-color: #D6CFC1 !important; 
+            color: #212529 !important; 
+            border-color: #C2BBAA !important;
+        }
+
+        [data-bs-theme="light"] .d-md-none.bg-dark.border-bottom { background-color: #F0EBE1 !important; border-bottom-color: #C2BBAA !important; }
+        /* ========================================================= */
     </style>
 </head>
 <body class="bg-body">
 
-    <div class="d-md-none bg-dark border-bottom border-warning p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top" id="headerMobile">
+    <div class="d-md-none bg-dark border-bottom border-warning p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
         <div>
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
@@ -116,7 +131,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 <div class="mt-auto pb-2 text-center">
                     <hr class="border-secondary mt-0 mb-3">
                     <span class="text-secondary" style="font-size: 0.75rem;">Desenvolvido por</span><br>
-                    <span class="fw-bold text-white" style="font-size: 0.8rem;">Pietro Dalbem & Luiz Gustavo</span>
+                    <span class="fw-bold text-light" style="font-size: 0.8rem;">Pietro Dalbem & Luiz Gustavo</span>
                 </div>
             </nav>
 
@@ -139,9 +154,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ==========================================
-        // === SCRIPT DO TEMA 100% CORRIGIDO ========
-        // ==========================================
         function aplicarTema(tema) {
             document.documentElement.setAttribute('data-bs-theme', tema);
             document.querySelectorAll('.icone-tema').forEach(icone => {
@@ -153,40 +165,24 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     icone.classList.replace('text-secondary', 'text-warning');
                 }
             });
-            
-            // Corrige a cor do header mobile (bg-dark para bg-light)
-            const headerMobile = document.getElementById('headerMobile');
-            if(headerMobile) {
-                if(tema === 'light') {
-                    headerMobile.classList.replace('bg-dark', 'bg-light');
-                } else {
-                    headerMobile.classList.replace('bg-light', 'bg-dark');
-                }
-            }
-
             localStorage.setItem('temaEscolhido', tema);
         }
 
         function alternarTema() {
             const temaAtual = document.documentElement.getAttribute('data-bs-theme');
             const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
-            
-            // Faz a animação de girar
             document.querySelectorAll('.icone-tema').forEach(icone => {
                 icone.classList.remove('animar-giro'); 
                 void icone.offsetWidth; 
                 icone.classList.add('animar-giro');
             });
-            
             aplicarTema(novoTema);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
-            carregarAprovados(); // Chama o carregamento dos cards aqui
+            carregarAprovados(); 
         });
-        // ==========================================
-
 
         const materiaLogada = '<?php echo $materia_logada; ?>';
 
@@ -207,7 +203,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                         ? '<span class="badge bg-warning text-dark mb-2"><i class="bi bi-star-fill"></i> Oficial</span>' 
                         : '<span class="badge bg-secondary mb-2 text-white"><i class="bi bi-person"></i> Aluno</span>';
 
-                    // Adicionei bg-dark nos cards e text-white nos títulos para o CSS inverter corretamente
                     const cartao = `
                         <div class="col-md-6 col-xl-4 mb-4">
                             <div class="card h-100 shadow border-secondary card-termo bg-dark">

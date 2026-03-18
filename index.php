@@ -29,19 +29,55 @@
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        /* REGRAS DO MODO CLARO (Invertido) */
-        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
-        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
-        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .modal-content.bg-dark { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] #barraAlfabeto { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
-        [data-bs-theme="light"] .text-light { color: #495057 !important; } 
-        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body { background-color: #E2DCD0 !important; } /* Fundo pastel areia */
+        [data-bs-theme="light"] #menuLateral { background-color: #D6CFC1 !important; } /* Menu lateral um tom mais escuro */
+        
+        /* Barra de Alfabeto com fundo areia e mantendo a borda colorida da página */
+        [data-bs-theme="light"] #barraAlfabeto { 
+            background-color: #E2DCD0 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+
+        /* Botão Área do Professor: Corrigindo contraste SÓ no Modo Claro */
+        [data-bs-theme="light"] .nav-link.text-warning {
+            color: #A66000 !important; /* Dourado/Laranja mais escuro e visível */
+            border-color: #A66000 !important;
+            font-weight: 700;
+            background-color: rgba(166, 96, 0, 0.08) !important; /* Leve fundo para destacar */
+        }
+        [data-bs-theme="light"] .nav-link.text-warning:hover {
+            background-color: #A66000 !important;
+            color: #ffffff !important;
+        }
+
+        /* Modais com a mesma cor do fundo da página */
+        [data-bs-theme="light"] .modal-content.bg-dark {
+            background-color: #E2DCD0 !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Cards levemente escurecidos (off-white) para não ofuscar */
+        [data-bs-theme="light"] .card.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .text-light { color: #5C636A !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #C2BBAA !important; } 
         [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
-        [data-bs-theme="light"] input.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
-        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
-        [data-bs-theme="light"] .card-footer.bg-dark { background-color: #f1f3f5 !important; }
-        [data-bs-theme="light"] .modal-footer.bg-dark { background-color: #f1f3f5 !important; }
+        
+        /* Ajuste dos inputs e rodapés */
+        [data-bs-theme="light"] input.bg-dark { background-color: #D6CFC1 !important; color: #212529 !important; border-color: #C2BBAA !important;}
+        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #C2BBAA !important; border-color: #C2BBAA !important; }
+        
+        /* Rodapés de cards e modais para combinar */
+        [data-bs-theme="light"] .card-footer.bg-dark { background-color: #E6E0D4 !important; border-color: #D6CFC1 !important; }
+        [data-bs-theme="light"] .modal-footer.bg-dark { background-color: #D6CFC1 !important; border-color: #C2BBAA !important; }
+        /* ========================================================= */
 
         /* REGRAS DA BARRA DE PESQUISA E ALFABETO */
         .btn-pesquisa { width: 100%; padding: 0.8rem; font-size: 1rem; }
@@ -137,7 +173,7 @@
                     <button class="btn btn-outline-primary fw-bold shadow-sm btn-pesquisa d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#modalPesquisa">
                         <i class="bi bi-search me-2"></i> Pesquisar termo...
                     </button>
-                    <div class="d-flex bg-dark rounded border border-primary shadow-sm flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
+                    <div class="d-flex bg-dark rounded border border-primary flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
                         <button onclick="filtrarPorLetra('TODOS')" class="btn btn-primary fw-bold btn-letra">TODOS</button>
                         <script>
                             const letrasPort = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

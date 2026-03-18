@@ -43,21 +43,44 @@ $resultado_turmas = $conn->query($sql_turmas);
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        /* REGRAS DO MODO CLARO (Invertido) */
-        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
-        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
-        [data-bs-theme="light"] .card.bg-dark { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
-        [data-bs-theme="light"] .text-light { color: #495057 !important; } 
-        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body { background-color: #E2DCD0 !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #D6CFC1 !important; }
+        
+        /* Botão Área do Professor: Corrigindo contraste SÓ no Modo Claro */
+        [data-bs-theme="light"] .nav-link.text-warning {
+            color: #A66000 !important;
+            border-color: #A66000 !important;
+            font-weight: 700;
+            background-color: rgba(166, 96, 0, 0.08) !important;
+        }
+        [data-bs-theme="light"] .nav-link.text-warning:hover {
+            background-color: #A66000 !important;
+            color: #ffffff !important;
+        }
+
+        /* Cards levemente escurecidos (off-white) para não ofuscar */
+        [data-bs-theme="light"] .card.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .text-light { color: #5C636A !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #C2BBAA !important; } 
         [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
-        /* Inputs do formulário no modo claro */
+        
+        /* Ajuste dos inputs, textareas e selects */
         [data-bs-theme="light"] input.bg-dark, 
         [data-bs-theme="light"] select.bg-dark, 
         [data-bs-theme="light"] textarea.bg-dark { 
-            background-color: #e9ecef !important; 
+            background-color: #D6CFC1 !important; 
             color: #212529 !important; 
+            border-color: #C2BBAA !important;
         }
+        /* ========================================================= */
     </style>
 </head>
 <body class="bg-body">

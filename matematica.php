@@ -29,19 +29,55 @@
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        /* REGRAS DO MODO CLARO (Invertido) */
-        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
-        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
-        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .modal-content.bg-dark { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] #barraAlfabeto { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
-        [data-bs-theme="light"] .text-light { color: #495057 !important; } 
-        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body { background-color: #E2DCD0 !important; } 
+        [data-bs-theme="light"] #menuLateral { background-color: #D6CFC1 !important; } 
+        
+        /* Barra de Alfabeto com fundo areia mantendo a borda da página */
+        [data-bs-theme="light"] #barraAlfabeto { 
+            background-color: #E2DCD0 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+
+        /* Botão Área do Professor: Corrigindo contraste SÓ no Modo Claro */
+        [data-bs-theme="light"] .nav-link.text-warning {
+            color: #A66000 !important; 
+            border-color: #A66000 !important;
+            font-weight: 700;
+            background-color: rgba(166, 96, 0, 0.08) !important; 
+        }
+        [data-bs-theme="light"] .nav-link.text-warning:hover {
+            background-color: #A66000 !important;
+            color: #ffffff !important;
+        }
+
+        /* Modais com a mesma cor do fundo da página */
+        [data-bs-theme="light"] .modal-content.bg-dark {
+            background-color: #E2DCD0 !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Cards levemente escurecidos (off-white) para não ofuscar */
+        [data-bs-theme="light"] .card.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .text-light { color: #5C636A !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #C2BBAA !important; } 
         [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
-        [data-bs-theme="light"] input.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
-        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
-        [data-bs-theme="light"] .card-footer.bg-dark { background-color: #f1f3f5 !important; }
-        [data-bs-theme="light"] .modal-footer.bg-dark { background-color: #f1f3f5 !important; }
+        
+        /* Ajuste dos inputs e rodapés */
+        [data-bs-theme="light"] input.bg-dark { background-color: #D6CFC1 !important; color: #212529 !important; border-color: #C2BBAA !important;}
+        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #C2BBAA !important; border-color: #C2BBAA !important; }
+        
+        /* Rodapés de cards e modais para combinar */
+        [data-bs-theme="light"] .card-footer.bg-dark { background-color: #E6E0D4 !important; border-color: #D6CFC1 !important; }
+        [data-bs-theme="light"] .modal-footer.bg-dark { background-color: #D6CFC1 !important; border-color: #C2BBAA !important; }
+        /* ========================================================= */
 
         /* REGRAS DA BARRA DE PESQUISA E ALFABETO */
         .btn-pesquisa { width: 100%; padding: 0.8rem; font-size: 1rem; }
@@ -99,12 +135,12 @@
                 
                 <ul class="nav nav-pills flex-column mb-auto mt-4 mt-md-0">
                     <li class="nav-item">
-                        <a href="index.php" class="nav-link text-white mb-2">
+                        <a href="index.php" class="nav-link text-white mb-2 shadow-sm" aria-current="page">
                             <i class="bi bi-book me-2"></i> Português
                         </a>
                     </li>
                     <li>
-                        <a href="matematica.php" class="nav-link active bg-danger text-white mb-2 fw-bold shadow-sm" aria-current="page">
+                        <a href="matematica.php" class="nav-link active bg-danger text-white mb-2 fw-bold">
                             <i class="bi bi-calculator me-2"></i> Matemática
                         </a>
                     </li>
@@ -141,7 +177,7 @@
                     <button class="btn btn-outline-danger fw-bold shadow-sm btn-pesquisa d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#modalPesquisa">
                         <i class="bi bi-search me-2"></i> Pesquisar termo...
                     </button>
-                    <div class="d-flex bg-dark rounded border border-danger shadow-sm flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
+                    <div class="d-flex bg-dark rounded border border-danger flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
                         <button onclick="filtrarPorLetra('TODOS')" class="btn btn-danger fw-bold btn-letra">TODOS</button>
                         <script>
                             const letrasPort = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -209,9 +245,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ==========================================
-        // === SCRIPT DO TEMA 100% CORRIGIDO ========
-        // ==========================================
         function aplicarTema(tema) {
             document.documentElement.setAttribute('data-bs-theme', tema);
             document.querySelectorAll('.icone-tema').forEach(icone => {
@@ -242,9 +275,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
         });
-        // ==========================================
 
-        const materiaPagina = 'matematica'; // VARIÁVEL CERTA!
+        // === GLOBALS E EVENTOS (Ajustado para Matemática) ===
+        const materiaPagina = 'matematica'; // ← AQUI buscaremos os termos de matemática!
         let termosGlobais = [];
         const modalPesquisaEl = document.getElementById('modalPesquisa');
         const campoBusca = document.getElementById('campoBusca');
@@ -262,9 +295,11 @@
         function gerarCartao(termo, carrossel = false) {
             let iconeAutor = termo.autor.toLowerCase() === 'professor' 
                 ? '<span class="badge bg-warning text-dark mb-2"><i class="bi bi-star-fill"></i> Oficial</span>' 
-                : (carrossel ? '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-fire"></i> Novo</span>' : '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-person"></i> Aluno</span>');
+                : (carrossel ? '<span class="badge bg-primary mb-2 text-white"><i class="bi bi-fire"></i> Novo</span>' : '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-person"></i> Aluno</span>');
             let imagemHtml = termo.imagem && termo.imagem !== "" ? `<img src="${termo.imagem}" class="card-img-top border-bottom border-secondary" style="height: ${carrossel ? '140px' : '200px'}; object-fit: cover;">` : '';
             const nomeEscapado = termo.nome.replace(/'/g, "\\'");
+            
+            // Bordas vermelhas nos cards
             const classesCartao = carrossel ? 'card shadow border-danger bg-dark card-termo flex-shrink-0' : 'card h-100 shadow border-danger bg-dark card-termo overflow-hidden';
             const estiloCarrossel = carrossel ? 'style="width: 280px;"' : '';
             const clampDescricao = carrossel ? 'display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;' : '';
@@ -316,7 +351,6 @@
             new bootstrap.Modal(document.getElementById('modalTermo')).show();
         }
 
-        // CARROSSEL BOTOES E FILTROS...
         const track = document.getElementById('trackCarrossel');
         const btnLeft = document.getElementById('btnScrollLeft');
         const btnRight = document.getElementById('btnScrollRight');
@@ -330,6 +364,7 @@
 
         function filtrarPorLetra(letra) {
             document.querySelectorAll('.btn-letra').forEach(btn => {
+                // Aqui mudamos para btn-danger na página de Matemática
                 btn.classList.replace('btn-danger', 'btn-outline-secondary');
                 if(btn.innerText === letra) btn.classList.replace('btn-outline-secondary', 'btn-danger');
             });

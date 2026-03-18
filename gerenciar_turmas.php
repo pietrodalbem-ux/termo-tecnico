@@ -137,19 +137,44 @@ if (isset($_GET['deletar_id'])) {
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
-        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
-        [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .card.bg-body { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .modal-content.bg-dark { background-color: #ffffff !important; } 
-        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
-        [data-bs-theme="light"] .text-light, [data-bs-theme="light"] .text-secondary { color: #495057 !important; } 
-        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
-        [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
-        [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] select.bg-dark, [data-bs-theme="light"] textarea.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
-        [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body, [data-bs-theme="light"] .bg-body { background-color: #E2DCD0 !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #D6CFC1 !important; }
         
-        [data-bs-theme="light"] .table-dark { --bs-table-bg: #ffffff; --bs-table-color: #212529; --bs-table-border-color: #ced4da; --bs-table-hover-bg: #f1f3f5; }
-        [data-bs-theme="light"] .table-dark th { background-color: #e2e6ea; color: #212529; }
+        [data-bs-theme="light"] .card.bg-dark, 
+        [data-bs-theme="light"] .modal-content.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .text-light, [data-bs-theme="light"] .text-secondary { color: #5C636A !important; } 
+        [data-bs-theme="light"] .border-secondary, 
+        [data-bs-theme="light"] .modal-header.border-bottom { border-color: #C2BBAA !important; } 
+        [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
+        
+        [data-bs-theme="light"] input.bg-dark, 
+        [data-bs-theme="light"] select.bg-dark, 
+        [data-bs-theme="light"] textarea.bg-dark { 
+            background-color: #D6CFC1 !important; 
+            color: #212529 !important; 
+            border-color: #C2BBAA !important;
+        }
+
+        [data-bs-theme="light"] .d-md-none.bg-dark.border-bottom { background-color: #F0EBE1 !important; border-bottom-color: #C2BBAA !important; }
+        
+        /* Ajustes específicos para as tabelas no modo claro */
+        [data-bs-theme="light"] .table-dark { 
+            --bs-table-bg: #F0EBE1; 
+            --bs-table-color: #2C3034; 
+            --bs-table-border-color: #C2BBAA; 
+            --bs-table-hover-bg: #E2DCD0; 
+        }
+        [data-bs-theme="light"] .table-dark th { background-color: #D6CFC1; color: #2C3034; }
+        [data-bs-theme="light"] .table-dark td.text-white { color: #2C3034 !important; }
+        /* ========================================================= */
     </style>
 </head>
 <body class="bg-body">
