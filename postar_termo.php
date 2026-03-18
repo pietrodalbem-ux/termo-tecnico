@@ -20,12 +20,44 @@ $resultado_turmas = $conn->query($sql_turmas);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Termo - Dicionário SESI</title>
+    
+    <script>
+        const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', temaInicial);
+    </script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
         @media (max-width: 767.98px) { .offcanvas-md { max-width: 80%; } }
+
+        /* ANIMAÇÃO DO SOL/LUA */
+        .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
+        @keyframes girarIcone {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animar-giro { animation: girarIcone 0.5s ease-in-out; }
+
+        /* REGRAS DO MODO CLARO (Invertido) */
+        [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
+        [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
+        [data-bs-theme="light"] .card.bg-dark { background-color: #ffffff !important; } 
+        [data-bs-theme="light"] .text-white { color: #212529 !important; } 
+        [data-bs-theme="light"] .text-light { color: #495057 !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #ced4da !important; }
+        [data-bs-theme="light"] .btn-close-white { filter: invert(1); } 
+        /* Inputs do formulário no modo claro */
+        [data-bs-theme="light"] input.bg-dark, 
+        [data-bs-theme="light"] select.bg-dark, 
+        [data-bs-theme="light"] textarea.bg-dark { 
+            background-color: #e9ecef !important; 
+            color: #212529 !important; 
+        }
     </style>
 </head>
 <body class="bg-body">
@@ -35,9 +67,12 @@ $resultado_turmas = $conn->query($sql_turmas);
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
         </div>
-        <button class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-            <i class="bi bi-list fs-3"></i>
-        </button>
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
+            <button class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+        </div>
     </div>
 
     <div class="container-fluid">
@@ -69,11 +104,23 @@ $resultado_turmas = $conn->query($sql_turmas);
                         </a>
                     </li>
                 </ul>
+
+                <div class="mt-4 pt-3 border-top border-secondary text-center">
+                    <span class="text-secondary" style="font-size: 0.75rem;">
+                        Desenvolvido por <br>
+                        <strong class="text-light">Pietro Dalbem & Luiz Gustavo</strong>
+                    </span>
+                </div>
+
             </nav>
 
-            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100">
+            <main class="col-md-9 offset-md-3 col-lg-10 offset-lg-2 px-3 px-md-5 py-4 py-md-5 min-vh-100 position-relative">
                 
-                <div class="mb-5 border-bottom border-success pb-3">
+                <div class="position-absolute top-0 end-0 mt-4 me-4 d-none d-md-block">
+                    <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Mudar Tema"></i>
+                </div>
+                
+                <div class="mb-5 border-bottom border-success pb-3 pe-md-5">
                     <h1 class="fw-bold text-success"><i class="bi bi-bookmark-plus-fill"></i> Contribuir com o Dicionário</h1>
                     <p class="text-secondary fs-6 fs-md-5">Envie uma nova palavra. Você precisará da senha da sua turma para postar.</p>
                 </div>
@@ -175,5 +222,43 @@ $resultado_turmas = $conn->query($sql_turmas);
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ==========================================
+        // === SCRIPT DO TEMA =======================
+        // ==========================================
+        function aplicarTema(tema) {
+            document.documentElement.setAttribute('data-bs-theme', tema);
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                if (tema === 'light') {
+                    icone.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                    icone.classList.replace('text-warning', 'text-secondary');
+                } else {
+                    icone.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                    icone.classList.replace('text-secondary', 'text-warning');
+                }
+            });
+            localStorage.setItem('temaEscolhido', tema);
+        }
+
+        function alternarTema() {
+            const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+            const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+            
+            // Faz a animação de girar
+            document.querySelectorAll('.icone-tema').forEach(icone => {
+                icone.classList.remove('animar-giro'); 
+                void icone.offsetWidth; 
+                icone.classList.add('animar-giro');
+            });
+            
+            aplicarTema(novoTema);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Garante que os ícones do sol/lua fiquem certos quando a página carregar
+            aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
+        });
+        // ==========================================
+    </script>
 </body>
 </html>

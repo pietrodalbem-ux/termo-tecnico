@@ -89,25 +89,25 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 </div>
                 
                 <ul class="nav nav-pills flex-column mb-auto mt-3">
-                    <li><a href="index.php" class="nav-link text-white mb-2"><i class="bi bi-house me-2"></i> Ir para o Site</a></li>
+                    <li><a href="index.php" class="nav-link text-white mb-2 text-nowrap"><i class="bi bi-house me-2"></i> Ir para o Site</a></li>
                     <hr class="border-secondary">
                     <li class="nav-item">
-                        <a href="admin.php" class="nav-link text-white mb-2">
+                        <a href="admin.php" class="nav-link text-white mb-2 text-nowrap">
                             <i class="bi bi-inbox-fill me-2"></i> Pendentes da Turma
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="gerenciar.php" class="nav-link active bg-warning text-dark mb-2 fw-bold shadow-sm" aria-current="page">
+                        <a href="gerenciar.php" class="nav-link active bg-warning text-dark mb-2 fw-bold shadow-sm text-nowrap" aria-current="page">
                             <i class="bi bi-collection me-2"></i> Gerir Aprovados
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="alterar_senha.php" class="nav-link text-white mb-2">
+                        <a href="alterar_senha.php" class="nav-link text-white mb-2 text-nowrap">
                             <i class="bi bi-shield-lock me-2"></i> Mudar Minha Senha
                         </a>
                     </li>
                     <li class="mt-4">
-                        <a href="admin.php?sair=true" class="nav-link text-danger border border-danger mb-2">
+                        <a href="admin.php?sair=true" class="nav-link text-danger border border-danger mb-2 text-nowrap">
                             <i class="bi bi-box-arrow-left me-2"></i> Sair da Conta
                         </a>
                     </li>

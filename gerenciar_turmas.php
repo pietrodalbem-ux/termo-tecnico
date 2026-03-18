@@ -117,7 +117,6 @@ if (isset($_GET['deletar_id'])) {
     <title>Gerenciar Turmas - <?php echo $nome_materia; ?></title>
     
     <script>
-        // Sincronizado com o mesmo nome das outras páginas
         const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
         document.documentElement.setAttribute('data-bs-theme', temaInicial);
     </script>
@@ -130,7 +129,6 @@ if (isset($_GET['deletar_id'])) {
         ::-webkit-scrollbar-thumb { background: #495057; border-radius: 4px; }
         @media (max-width: 767.98px) { .offcanvas-md { max-width: 80%; } }
 
-        /* ANIMAÇÃO DO SOL/LUA (Copiada do Matematica) */
         .btn-tema { font-size: 1.8rem; cursor: pointer; user-select: none; }
         @keyframes girarIcone {
             0% { transform: rotate(0deg) scale(1); }
@@ -139,7 +137,6 @@ if (isset($_GET['deletar_id'])) {
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        /* REGRAS DO MODO CLARO (Invertido - Copiado do Matematica) */
         [data-bs-theme="light"] body { background-color: #f8f9fa !important; }
         [data-bs-theme="light"] #menuLateral { background-color: #e2e6ea !important; } 
         [data-bs-theme="light"] .card.bg-dark, [data-bs-theme="light"] .card.bg-body { background-color: #ffffff !important; } 
@@ -151,7 +148,6 @@ if (isset($_GET['deletar_id'])) {
         [data-bs-theme="light"] input.bg-dark, [data-bs-theme="light"] select.bg-dark, [data-bs-theme="light"] textarea.bg-dark { background-color: #e9ecef !important; color: #212529 !important; }
         [data-bs-theme="light"] .input-group-text.bg-dark { background-color: #dee2e6 !important; }
         
-        /* Regras extras para o Admin (Tabelas) */
         [data-bs-theme="light"] .table-dark { --bs-table-bg: #ffffff; --bs-table-color: #212529; --bs-table-border-color: #ced4da; --bs-table-hover-bg: #f1f3f5; }
         [data-bs-theme="light"] .table-dark th { background-color: #e2e6ea; color: #212529; }
     </style>
@@ -190,30 +186,33 @@ if (isset($_GET['deletar_id'])) {
                 </div>
                 
                 <ul class="nav nav-pills flex-column mb-auto mt-3">
-                    <li><a href="index.php" class="nav-link text-white mb-2"><i class="bi bi-house me-2"></i> Ir para o Site</a></li>
+                    <li>
+                        <a href="index.php" class="nav-link text-white mb-2 text-nowrap">
+                            <i class="bi bi-house me-2"></i> Ir para o Site
+                        </a>
+                    </li>
                     <hr class="border-secondary">
+                    
                     <li class="nav-item">
-                        <a href="admin.php" class="nav-link text-white mb-2">
+                        <a href="admin.php" class="nav-link text-white mb-2 text-nowrap">
                             <i class="bi bi-inbox-fill me-2"></i> Pendentes da Turma
                         </a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a href="gerenciar.php" class="nav-link text-white mb-2">
+                        <a href="gerenciar.php" class="nav-link text-white mb-2 text-nowrap">
                             <i class="bi bi-collection me-2"></i> Gerir Aprovados
                         </a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a href="gerenciar_turmas.php" class="nav-link active bg-warning text-dark mb-2 fw-bold shadow-sm" aria-current="page">
-                            <i class="bi bi-people-fill me-2"></i> Gerenciar Turmas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="alterar_senha.php" class="nav-link text-white mb-2">
+                        <a href="alterar_senha.php" class="nav-link text-white mb-2 text-nowrap">
                             <i class="bi bi-shield-lock me-2"></i> Mudar Minha Senha
                         </a>
                     </li>
+                    
                     <li class="mt-4">
-                        <a href="admin.php?sair=true" class="nav-link text-danger border border-danger mb-2">
+                        <a href="admin.php?sair=true" class="nav-link text-danger border border-danger mb-2 text-nowrap">
                             <i class="bi bi-box-arrow-left me-2"></i> Sair da Conta
                         </a>
                     </li>
@@ -398,9 +397,6 @@ if (isset($_GET['deletar_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // ==========================================
-        // === SCRIPT DO TEMA 100% CORRIGIDO ========
-        // ==========================================
         function aplicarTema(tema) {
             document.documentElement.setAttribute('data-bs-theme', tema);
             document.querySelectorAll('.icone-tema').forEach(icone => {
@@ -413,7 +409,6 @@ if (isset($_GET['deletar_id'])) {
                 }
             });
             
-            // Corrige a cor do header mobile (bg-dark para bg-light)
             const headerMobile = document.getElementById('headerMobile');
             if(headerMobile) {
                 if(tema === 'light') {
@@ -430,7 +425,6 @@ if (isset($_GET['deletar_id'])) {
             const temaAtual = document.documentElement.getAttribute('data-bs-theme');
             const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
             
-            // Faz a animação de girar
             document.querySelectorAll('.icone-tema').forEach(icone => {
                 icone.classList.remove('animar-giro'); 
                 void icone.offsetWidth; 
@@ -443,7 +437,6 @@ if (isset($_GET['deletar_id'])) {
         document.addEventListener('DOMContentLoaded', () => {
             aplicarTema(localStorage.getItem('temaEscolhido') || 'dark');
             
-            // Lógica dos Toasts (Alertas)
             var toastElList = [].slice.call(document.querySelectorAll('.toast'));
             var toastList = toastElList.map(function (toastEl) {
                 return new bootstrap.Toast(toastEl, { delay: 4000 }); 

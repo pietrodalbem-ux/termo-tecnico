@@ -70,14 +70,14 @@
 </head>
 <body class="bg-body">
 
-    <div class="d-md-none bg-dark border-bottom border-primary p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
+    <div class="d-md-none bg-dark border-bottom border-danger p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
         <div>
             <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
             <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
         </div>
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+            <button class="btn btn-outline-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
                 <i class="bi bi-list fs-3"></i>
             </button>
         </div>
@@ -86,7 +86,7 @@
     <div class="container-fluid">
         <div class="row">
             
-            <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-primary border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
+            <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-danger border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
                 <div class="offcanvas-header d-md-none mb-0 pb-0">
                     <h5 class="offcanvas-title fw-bolder text-danger">SESI <span class="text-secondary fs-6">Dicionário</span></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#menuLateral"></button>
@@ -104,7 +104,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="matematica.php" class="nav-link active bg-primary text-white mb-2 fw-bold shadow-sm" aria-current="page">
+                        <a href="matematica.php" class="nav-link active bg-danger text-white mb-2 fw-bold shadow-sm" aria-current="page">
                             <i class="bi bi-calculator me-2"></i> Matemática
                         </a>
                     </li>
@@ -131,18 +131,18 @@
                     <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()" title="Mudar Tema"></i>
                 </div>
 
-                <div class="mb-5 border-bottom border-primary pb-3">
-                    <h1 class="fw-bold text-primary"><i class="bi bi-calculator"></i> Matemática</h1>
+                <div class="mb-5 border-bottom border-danger pb-3">
+                    <h1 class="fw-bold text-danger"><i class="bi bi-calculator"></i> Matemática</h1>
                     <p class="text-secondary fs-6 fs-md-5">Explore os termos e conceitos da matemática.</p>
-                    <span class="badge bg-primary fs-6"><i class="bi bi-hash"></i> <span id="totalTermos">0</span> termos cadastrados</span>
+                    <span class="badge bg-danger fs-6"><i class="bi bi-hash"></i> <span id="totalTermos">0</span> termos cadastrados</span>
                 </div>
 
                 <div class="d-flex flex-column flex-xl-row gap-3 mb-4 align-items-stretch">
-                    <button class="btn btn-outline-primary fw-bold shadow-sm btn-pesquisa d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#modalPesquisa">
+                    <button class="btn btn-outline-danger fw-bold shadow-sm btn-pesquisa d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#modalPesquisa">
                         <i class="bi bi-search me-2"></i> Pesquisar termo...
                     </button>
-                    <div class="d-flex bg-dark rounded border border-primary shadow-sm flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
-                        <button onclick="filtrarPorLetra('TODOS')" class="btn btn-primary fw-bold btn-letra">TODOS</button>
+                    <div class="d-flex bg-dark rounded border border-danger shadow-sm flex-grow-1 barra-alfabeto-container" id="barraAlfabeto">
+                        <button onclick="filtrarPorLetra('TODOS')" class="btn btn-danger fw-bold btn-letra">TODOS</button>
                         <script>
                             const letrasPort = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
                             letrasPort.forEach(l => document.write(`<button onclick="filtrarPorLetra('${l}')" class="btn btn-outline-secondary fw-bold btn-letra">${l}</button>`));
@@ -151,11 +151,11 @@
                 </div>
 
                 <div id="secaoCarrossel" class="mb-5 position-relative d-none">
-                    <h4 class="text-primary fw-bold mb-3"><i class="bi bi-stars"></i> Adicionados Recentemente</h4>
+                    <h4 class="text-danger fw-bold mb-3"><i class="bi bi-stars"></i> Adicionados Recentemente</h4>
                     <div class="position-relative">
-                        <button class="btn btn-primary rounded-circle position-absolute start-0 top-50 translate-middle-y z-3 shadow btn-carrossel" id="btnScrollLeft" style="display: none; margin-left: -15px;"><i class="bi bi-chevron-left fs-4"></i></button>
+                        <button class="btn btn-danger rounded-circle position-absolute start-0 top-50 translate-middle-y z-3 shadow btn-carrossel" id="btnScrollLeft" style="display: none; margin-left: -15px;"><i class="bi bi-chevron-left fs-4"></i></button>
                         <div class="d-flex carousel-track py-3 gap-3" id="trackCarrossel"></div>
-                        <button class="btn btn-primary rounded-circle position-absolute end-0 top-50 translate-middle-y z-3 shadow btn-carrossel" id="btnScrollRight" style="margin-right: -15px;"><i class="bi bi-chevron-right fs-4"></i></button>
+                        <button class="btn btn-danger rounded-circle position-absolute end-0 top-50 translate-middle-y z-3 shadow btn-carrossel" id="btnScrollRight" style="margin-right: -15px;"><i class="bi bi-chevron-right fs-4"></i></button>
                     </div>
                     <hr class="border-secondary mt-4">
                 </div>
@@ -167,15 +167,15 @@
 
     <div class="modal fade" id="modalPesquisa" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark border-primary shadow-lg">
-                <div class="modal-header border-bottom border-primary">
-                    <h5 class="modal-title text-primary fw-bold"><i class="bi bi-search"></i> Pesquisar Termo</h5>
+            <div class="modal-content bg-dark border-danger shadow-lg">
+                <div class="modal-header border-bottom border-danger">
+                    <h5 class="modal-title text-danger fw-bold"><i class="bi bi-search"></i> Pesquisar Termo</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="input-group input-group-lg shadow-sm">
-                        <span class="input-group-text bg-dark border-primary text-primary"><i class="bi bi-search"></i></span>
-                        <input type="text" id="campoBusca" class="form-control bg-dark text-white border-primary" placeholder="O que você está procurando?">
+                        <span class="input-group-text bg-dark border-danger text-danger"><i class="bi bi-search"></i></span>
+                        <input type="text" id="campoBusca" class="form-control bg-dark text-white border-danger" placeholder="O que você está procurando?">
                     </div>
                     <p class="text-secondary small mt-3 text-center mb-0">Os resultados atualizam no fundo. Pressione <strong>Enter</strong> para fechar.</p>
                 </div>
@@ -185,8 +185,8 @@
 
     <div class="modal fade" id="modalTermo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-            <div class="modal-content bg-dark border-primary shadow-lg">
-                <div class="modal-header border-bottom border-primary d-flex flex-column align-items-start gap-2">
+            <div class="modal-content bg-dark border-danger shadow-lg">
+                <div class="modal-header border-bottom border-danger d-flex flex-column align-items-start gap-2">
                     <div class="w-100 d-flex justify-content-between align-items-center">
                         <div id="modalTermoBadge"></div>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -199,8 +199,8 @@
                         <p class="text-light fs-5 mb-0" id="modalTermoDescricao" style="line-height: 1.8; text-align: justify;"></p>
                     </div>
                 </div>
-                <div class="modal-footer bg-dark border-top border-primary d-flex justify-content-between">
-                    <span class="text-primary fw-bold fs-6"><i class="bi bi-pen"></i> Adicionado por: <span id="modalTermoAutor" class="text-white"></span></span>
+                <div class="modal-footer bg-dark border-top border-danger d-flex justify-content-between">
+                    <span class="text-danger fw-bold fs-6"><i class="bi bi-pen"></i> Adicionado por: <span id="modalTermoAutor" class="text-white"></span></span>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
@@ -262,10 +262,10 @@
         function gerarCartao(termo, carrossel = false) {
             let iconeAutor = termo.autor.toLowerCase() === 'professor' 
                 ? '<span class="badge bg-warning text-dark mb-2"><i class="bi bi-star-fill"></i> Oficial</span>' 
-                : (carrossel ? '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-fire"></i> Novo</span>' : '<span class="badge bg-primary mb-2 text-white"><i class="bi bi-person"></i> Aluno</span>');
+                : (carrossel ? '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-fire"></i> Novo</span>' : '<span class="badge bg-danger mb-2 text-white"><i class="bi bi-person"></i> Aluno</span>');
             let imagemHtml = termo.imagem && termo.imagem !== "" ? `<img src="${termo.imagem}" class="card-img-top border-bottom border-secondary" style="height: ${carrossel ? '140px' : '200px'}; object-fit: cover;">` : '';
             const nomeEscapado = termo.nome.replace(/'/g, "\\'");
-            const classesCartao = carrossel ? 'card shadow border-primary bg-dark card-termo flex-shrink-0' : 'card h-100 shadow border-primary bg-dark card-termo overflow-hidden';
+            const classesCartao = carrossel ? 'card shadow border-danger bg-dark card-termo flex-shrink-0' : 'card h-100 shadow border-danger bg-dark card-termo overflow-hidden';
             const estiloCarrossel = carrossel ? 'style="width: 280px;"' : '';
             const clampDescricao = carrossel ? 'display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;' : '';
 
@@ -278,7 +278,7 @@
                             <h${carrossel ? '5' : '4'} class="card-title fw-bold text-white mb-${carrossel ? '2' : '3'} text-truncate">${termo.nome}</h${carrossel ? '5' : '4'}>
                             <p class="card-text text-light" style="font-size: ${carrossel ? '0.95rem' : '1.1rem'}; line-height: 1.6; ${clampDescricao}">${termo.descricao}</p>
                         </div>
-                        ${!carrossel ? `<div class="card-footer bg-dark border-top border-primary text-primary small fw-bold px-4 py-3"><i class="bi bi-pen"></i> Autor: ${termo.autor}</div>` : ''}
+                        ${!carrossel ? `<div class="card-footer bg-dark border-top border-danger text-danger small fw-bold px-4 py-3"><i class="bi bi-pen"></i> Autor: ${termo.autor}</div>` : ''}
                     </div>
                 </div>
             `;
@@ -309,7 +309,7 @@
             document.getElementById('modalTermoTitulo').innerText = termo.nome;
             document.getElementById('modalTermoDescricao').innerText = termo.descricao;
             document.getElementById('modalTermoAutor').innerText = termo.autor;
-            document.getElementById('modalTermoBadge').innerHTML = termo.autor.toLowerCase() === 'professor' ? '<span class="badge bg-warning text-dark px-3 py-2 fs-6"><i class="bi bi-star-fill"></i> Termo Oficial</span>' : '<span class="badge bg-primary text-white px-3 py-2 fs-6"><i class="bi bi-person"></i> Adicionado por Aluno</span>';
+            document.getElementById('modalTermoBadge').innerHTML = termo.autor.toLowerCase() === 'professor' ? '<span class="badge bg-warning text-dark px-3 py-2 fs-6"><i class="bi bi-star-fill"></i> Termo Oficial</span>' : '<span class="badge bg-danger text-white px-3 py-2 fs-6"><i class="bi bi-person"></i> Adicionado por Aluno</span>';
             const imgElement = document.getElementById('modalTermoImg');
             if(termo.imagem && termo.imagem !== "") { imgElement.src = termo.imagem; imgElement.classList.remove('d-none'); } 
             else { imgElement.src = ""; imgElement.classList.add('d-none'); }
@@ -330,8 +330,8 @@
 
         function filtrarPorLetra(letra) {
             document.querySelectorAll('.btn-letra').forEach(btn => {
-                btn.classList.replace('btn-primary', 'btn-outline-secondary');
-                if(btn.innerText === letra) btn.classList.replace('btn-outline-secondary', 'btn-primary');
+                btn.classList.replace('btn-danger', 'btn-outline-secondary');
+                if(btn.innerText === letra) btn.classList.replace('btn-outline-secondary', 'btn-danger');
             });
             if (letra === 'TODOS') { document.getElementById('secaoCarrossel').classList.remove('d-none'); renderizarTermos(termosGlobais); } 
             else { document.getElementById('secaoCarrossel').classList.add('d-none'); renderizarTermos(termosGlobais.filter(t => t.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").charAt(0).toUpperCase() === letra)); }
@@ -342,8 +342,8 @@
             document.getElementById('secaoCarrossel').classList.toggle('d-none', t !== "");
             renderizarTermos(termosGlobais.filter(termo => termo.nome.toLowerCase().includes(t) || termo.descricao.toLowerCase().includes(t)));
             document.querySelectorAll('.btn-letra').forEach(btn => {
-                btn.classList.replace('btn-primary', 'btn-outline-secondary');
-                if(btn.innerText === 'TODOS') btn.classList.replace('btn-outline-secondary', 'btn-primary');
+                btn.classList.replace('btn-danger', 'btn-outline-secondary');
+                if(btn.innerText === 'TODOS') btn.classList.replace('btn-outline-secondary', 'btn-danger');
             });
         });
 
