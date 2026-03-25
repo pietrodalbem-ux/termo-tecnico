@@ -113,7 +113,8 @@ $resultado_turmas = $conn->query($sql_turmas);
                 </div>
                 
                 <ul class="nav nav-pills flex-column mb-auto mt-4 mt-md-0">
-                    <li><a href="index.php" class="nav-link text-white mb-2"><i class="bi bi-book me-2"></i> Português</a></li>
+                    <li><a href="index.php" class="nav-link text-white mb-2"><i class="bi bi-house-door me-2"></i> Início</a></li>
+                    <li><a href="portugues.php" class="nav-link text-white mb-2"><i class="bi bi-book me-2"></i> Português</a></li>
                     <li><a href="matematica.php" class="nav-link text-white mb-2"><i class="bi bi-calculator me-2"></i> Matemática</a></li>
                     <li class="nav-item">
                         <a href="postar_termo.php" class="nav-link active bg-success text-white mb-2 fw-bold shadow-sm" aria-current="page">

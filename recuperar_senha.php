@@ -60,11 +60,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         .animar-giro { animation: girarIcone 0.5s ease-in-out; }
 
-        [data-bs-theme="light"] body { background-color: #f0f2f5 !important; }
-        [data-bs-theme="light"] .card { background-color: #ffffff !important; border-color: #dee2e6 !important; }
-        [data-bs-theme="light"] .text-white { color: #212529 !important; }
-        [data-bs-theme="light"] .bg-dark { background-color: #f8f9fa !important; color: #212529 !important; }
-        [data-bs-theme="light"] .form-select { background-color: #f8f9fa !important; color: #212529 !important; }
+        /* ========================================================= */
+        /* REGRAS DO MODO CLARO (Ajustes Finais Pastel/Areia)        */
+        /* ========================================================= */
+        [data-bs-theme="light"] body { background-color: #E2DCD0 !important; }
+        
+        [data-bs-theme="light"] .card.bg-dark { 
+            background-color: #F0EBE1 !important; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
+        } 
+        
+        [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
+        [data-bs-theme="light"] .border-secondary { border-color: #C2BBAA !important; } 
+        
+        [data-bs-theme="light"] input.bg-dark,
+        [data-bs-theme="light"] select.bg-dark { 
+            background-color: #D6CFC1 !important; 
+            color: #212529 !important; 
+            border-color: #C2BBAA !important;
+        }
+        /* ========================================================= */
     </style>
 </head>
 <body class="bg-dark d-flex align-items-center justify-content-center vh-100 p-3 position-relative">

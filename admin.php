@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     // Verifica se uma nova imagem foi enviada
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
         $diretorio = 'uploads/';
-        
         if (!is_dir($diretorio)) {
             mkdir($diretorio, 0777, true);
         }
@@ -21,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $extensao = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
         $novo_nome = uniqid() . '.' . $extensao;
         $caminho_imagem = $diretorio . $novo_nome;
-
         if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho_imagem)) {
             $stmt = $conn->prepare("UPDATE termos SET nome = ?, descricao = ?, imagem = ? WHERE id = ?");
             $stmt->bind_param("sssi", $nome, $descricao, $caminho_imagem, $id);
@@ -40,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     }
     
     if (isset($stmt)) $stmt->close();
-    exit; 
+    exit;
 }
 
 // =========================================================================
@@ -56,7 +54,6 @@ $erro = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['senha_admin'])) {
     $materia_escolhida = $_POST['materia_login'];
     $senha_digitada = $_POST['senha_admin'];
-
     $stmt = $conn->prepare("SELECT * FROM professores WHERE materia = ? AND senha = ?");
     $stmt->bind_param("ss", $materia_escolhida, $senha_digitada);
     $stmt->execute();
@@ -108,14 +105,14 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
         /* ========================================================= */
         [data-bs-theme="light"] body { background-color: #E2DCD0 !important; }
         [data-bs-theme="light"] .card.bg-dark { 
-            background-color: #F0EBE1 !important; 
+            background-color: #F0EBE1 !important;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
         } 
         [data-bs-theme="light"] .text-white { color: #2C3034 !important; } 
         [data-bs-theme="light"] .border-secondary { border-color: #C2BBAA !important; }
         [data-bs-theme="light"] input.bg-dark, 
         [data-bs-theme="light"] select.bg-dark { 
-            background-color: #D6CFC1 !important; 
+            background-color: #D6CFC1 !important;
             color: #212529 !important; 
             border-color: #C2BBAA !important;
         }
@@ -239,7 +236,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         
         [data-bs-theme="light"] .card.bg-dark, 
         [data-bs-theme="light"] .modal-content.bg-dark { 
-            background-color: #F0EBE1 !important; 
+            background-color: #F0EBE1 !important;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; 
         } 
         
@@ -254,7 +251,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         [data-bs-theme="light"] input.bg-dark, 
         [data-bs-theme="light"] select.bg-dark, 
         [data-bs-theme="light"] textarea.bg-dark { 
-            background-color: #D6CFC1 !important; 
+            background-color: #D6CFC1 !important;
             color: #212529 !important; 
             border-color: #C2BBAA !important;
         }
@@ -419,7 +416,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                         </div>
                     </form>
                     <?php 
-                        endwhile; 
+                        endwhile;
                     endif;
                     ?>
                 </div>
@@ -438,9 +435,9 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     
                     <div id="modoVisualizacao">
                         <div id="detalheImagem" class="mb-3 text-center"></div>
-                        <h4 id="detalheNome" class="fw-bold text-warning mb-3"></h4>
+                        <h4 id="detalheNome" class="fw-bold text-warning mb-3 text-break"></h4>
                         <div class="bg-secondary bg-opacity-25 p-3 rounded mb-3">
-                            <p id="detalheDescricao" class="mb-0 text-white"></p>
+                            <p id="detalheDescricao" class="mb-0 text-white text-break"></p>
                         </div>
                         <p class="text-secondary small mb-4"><i class="bi bi-pen"></i> Autor: <span id="detalheAutor" class="text-white fw-bold"></span></p>
                         
@@ -508,10 +505,9 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         }
         
         document.addEventListener('DOMContentLoaded', () => aplicarTema(localStorage.getItem('temaEscolhido') || 'dark'));
-
         const materiaLogada = '<?php echo $materia_logada; ?>';
-        let termosGlobais = []; 
-
+        let termosGlobais = [];
+        
         async function carregarPendentes() {
             const divLista = document.getElementById('listaPendentes');
             try {
@@ -520,7 +516,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 
                 termosGlobais = termos; 
                 divLista.innerHTML = '';
-
                 if (termos.length === 0) {
                     divLista.innerHTML = `
                         <div class="col-12 text-center text-secondary mt-5">
@@ -545,7 +540,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                         <span class="badge bg-secondary"><i class="bi bi-person"></i> ${termo.autor}</span>
                                     </div>
-                                    <h5 class="card-title fw-bold text-white">${termo.nome}</h5>
+                                    <h5 class="card-title fw-bold text-white text-break">${termo.nome}</h5>
                                     <p class="card-text text-secondary small text-truncate" style="max-height: 40px;">${termo.descricao}</p>
                                 </div>
                                 
@@ -563,7 +558,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                     divLista.innerHTML += cartao;
                 });
             } catch (erro) { 
-                console.error("Erro ao carregar pendentes:", erro); 
+                console.error("Erro ao carregar pendentes:", erro);
             }
         }
 
@@ -636,7 +631,7 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 alert('Erro de conexão ao salvar.');
             }
         });
-
+        
         carregarPendentes(); 
     </script>
 </body>
