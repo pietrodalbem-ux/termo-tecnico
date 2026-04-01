@@ -19,7 +19,7 @@ $resultado_turmas = $conn->query($sql_turmas);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Termo - Dicionário SESI</title>
+    <title>Adicionar Termo - Dicionário de termos</title>
     
     <script>
         const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
@@ -87,8 +87,8 @@ $resultado_turmas = $conn->query($sql_turmas);
 
     <div class="d-md-none bg-dark border-bottom border-success p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top" style="z-index: 1050;">
         <div>
-            <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
-            <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
+            <span class="fw-bolder text-success fs-4 tracking-tight">Dicionário </span>
+            <span class="text-secondary fw-bold ms-1 text-uppercase small">de termos</span>
         </div>
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
@@ -103,13 +103,13 @@ $resultado_turmas = $conn->query($sql_turmas);
             
             <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-success border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
                 <div class="offcanvas-header d-md-none mb-0 pb-0">
-                    <h5 class="offcanvas-title fw-bolder text-danger">SESI <span class="text-secondary fs-6">Dicionário</span></h5>
+                    <h5 class="offcanvas-title fw-bolder text-success">Dicionário <span class="text-secondary fs-6">de termos</span></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#menuLateral"></button>
                 </div>
 
                 <div class="text-center mb-4 mt-3 d-none d-md-block">
-                    <h2 class="fw-bolder text-danger tracking-tight mb-0">SESI</h2>
-                    <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">Dicionário</span>
+                    <h2 class="fw-bolder text-success tracking-tight mb-0">Dicionário </h2>
+                    <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">de termos</span>
                 </div>
                 
                 <ul class="nav nav-pills flex-column mb-auto mt-4 mt-md-0">

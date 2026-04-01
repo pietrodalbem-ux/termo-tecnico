@@ -1,4 +1,4 @@
-# 📚 Dicionário SESI - Termos Técnicos
+# 📚 Dicionário de termos - Termos Técnicos
 
 Este é um sistema web desenvolvido como projeto escolar para catalogar e organizar termos técnicos das disciplinas de **Português** e **Matemática**. 
 
