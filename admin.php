@@ -81,7 +81,7 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Professor - SESI</title>
+    <title>Login Professor</title>
     
     <script>
         const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
@@ -126,8 +126,9 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 
     <div class="card bg-dark border-warning shadow-lg w-100" style="max-width: 420px;">
         <div class="card-body p-4 p-md-5 text-center">
-            <h2 class="fw-bolder text-danger tracking-tight mb-0">SESI</h2>
-            <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">Dicionário</span>
+            <h2 class="fw-bolder text-warning tracking-tight mb-0">Dicionário </h2>
+           
+            <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">de termos</span>
             
             <h4 class="text-white mt-4 mb-4"><i class="bi bi-shield-lock text-warning me-2"></i>Área do Professor</h4>
             
@@ -151,7 +152,8 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
                 <a href="index.php" class="btn btn-outline-secondary w-100 mb-3">Voltar para o Site</a>
                 
                 <div class="text-center mt-2">
-                    <a href="recuperar_senha.php" class="text-secondary small text-decoration-none" style="transition: color 0.3s;" onmouseover="this.classList.replace('text-secondary', 'text-warning')" onmouseout="this.classList.replace('text-warning', 'text-secondary')">
+                    <a href="recuperar_senha.php" class="text-secondary small text-decoration-none" style="transition: color 0.3s;"
+                        onmouseover="this.classList.replace('text-secondary', 'text-warning')" onmouseout="this.classList.replace('text-warning', 'text-secondary')">
                         <i class="bi bi-question-circle"></i> Esqueci minha senha
                     </a>
                 </div>
@@ -160,6 +162,7 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+   
     <script>
         function aplicarTema(tema) {
             document.documentElement.setAttribute('data-bs-theme', tema);
@@ -200,6 +203,9 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 $materia_logada = $_SESSION['materia_admin'];
 $nome_materia = ($materia_logada === 'portugues') ? 'Português' : 'Matemática';
 $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
+
+// VARIÁVEL ADICIONADA: Define a cor do texto do Dicionário no menu baseado na matéria
+$cor_texto = ($materia_logada === 'portugues') ? 'text-primary' : 'text-danger';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR" data-bs-theme="dark"> 
@@ -256,7 +262,8 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
             border-color: #C2BBAA !important;
         }
 
-        [data-bs-theme="light"] .d-md-none.bg-dark.border-bottom { background-color: #F0EBE1 !important; border-bottom-color: #C2BBAA !important; }
+        [data-bs-theme="light"] .d-md-none.bg-dark.border-bottom { background-color: #F0EBE1 !important;
+            border-bottom-color: #C2BBAA !important; }
         /* ========================================================= */
     </style>
 </head>
@@ -264,8 +271,8 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
 
     <div class="d-md-none bg-dark border-bottom border-warning p-3 d-flex justify-content-between align-items-center shadow-sm sticky-top">
         <div>
-            <span class="fw-bolder text-danger fs-4 tracking-tight">SESI</span>
-            <span class="text-secondary fw-bold ms-1 text-uppercase small">Dicionário</span>
+            <span class="fw-bolder <?php echo $cor_texto; ?> fs-4 tracking-tight">Dicionário </span>
+            <span class="text-secondary fw-bold ms-1 text-uppercase small">de termos</span>
         </div>
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-sun-fill text-warning btn-tema icone-tema" onclick="alternarTema()"></i>
@@ -280,13 +287,13 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
             
             <nav class="col-md-3 col-lg-2 offcanvas-md offcanvas-start bg-dark border-end border-warning border-4 position-fixed vh-100 p-3 d-flex flex-column shadow-lg" id="menuLateral">
                 <div class="offcanvas-header d-md-none mb-0 pb-0">
-                    <h5 class="offcanvas-title fw-bolder text-danger">SESI <span class="text-secondary fs-6">Dicionário</span></h5>
+                    <h5 class="offcanvas-title fw-bolder <?php echo $cor_texto; ?>">Dicionário <span class="text-secondary fs-6">de termos</span></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#menuLateral"></button>
                 </div>
 
                 <div class="text-center mb-3 mt-md-3 d-none d-md-block">
-                    <h2 class="fw-bolder text-danger tracking-tight mb-0">SESI</h2>
-                    <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">Dicionário</span>
+                    <h2 class="fw-bolder <?php echo $cor_texto; ?> tracking-tight mb-0">Dicionário </h2>
+                    <span class="text-secondary fw-bold fs-6 text-uppercase letter-spacing-1">de termos</span>
                 </div>
                 
                 <div class="text-center mb-4 mt-3 mt-md-0">
@@ -323,7 +330,8 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom border-warning pb-3 gap-3">
                     <div>
                         <h1 class="fw-bold text-warning"><i class="bi bi-inbox-fill"></i> Para Aprovação</h1>
-                        <p class="text-secondary fs-6 fs-md-5 mb-0">Clique nos cards para expandir e editar. Avalie os termos de <b><?php echo $nome_materia; ?></b>.</p>
+                        <p class="text-secondary fs-6 fs-md-5 mb-0">Clique nos cards para expandir e editar.
+                        Avalie os termos de <b><?php echo $nome_materia; ?></b>.</p>
                     </div>
                     
                     <div class="d-flex flex-column flex-sm-row gap-2">
@@ -507,7 +515,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
         document.addEventListener('DOMContentLoaded', () => aplicarTema(localStorage.getItem('temaEscolhido') || 'dark'));
         const materiaLogada = '<?php echo $materia_logada; ?>';
         let termosGlobais = [];
-        
         async function carregarPendentes() {
             const divLista = document.getElementById('listaPendentes');
             try {
@@ -631,7 +638,6 @@ $cor_badge = ($materia_logada === 'portugues') ? 'bg-primary' : 'bg-danger';
                 alert('Erro de conexão ao salvar.');
             }
         });
-        
         carregarPendentes(); 
     </script>
 </body>

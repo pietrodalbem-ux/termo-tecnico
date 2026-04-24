@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Senha - SESI</title>
+    <title>Recuperar Senha </title>
     
     <script>
         const temaInicial = localStorage.getItem('temaEscolhido') || 'dark';
@@ -115,8 +115,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label text-warning small fw-bold">3. Nome Completo (Segurança)</label>
-                    <input type="text" name="nome_seguranca" class="form-control bg-dark text-warning border-warning shadow-sm" placeholder="Seu nome cadastrado" required>
+                    <label class="form-label text-warning small fw-bold">3. Código de segurança</label>
+                    <input type="text" name="nome_seguranca" class="form-control bg-dark text-warning border-warning shadow-sm" placeholder="Senha" required>
                 </div>
 
                 <button type="submit" class="btn btn-warning w-100 fw-bold mb-3 shadow py-2"><i class="bi bi-arrow-repeat me-1"></i> Redefinir Senha</button>
