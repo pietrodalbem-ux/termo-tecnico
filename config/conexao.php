@@ -4,7 +4,7 @@
 $host = "localhost";
 $usuario = "root"; // Padrão do XAMPP
 $senha = "";       // Padrão do XAMPP (vazio)
-$banco = "dicionario_sesi"; // O nome do banco que vamos criar no MySQL
+$banco = "dicionario_termos"; // O nome do banco que vamos criar no MySQL
 
 // Cria a conexão com o banco de dados
 $conn = new mysqli($host, $usuario, $senha, $banco);
